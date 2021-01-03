@@ -1,0 +1,3 @@
+[submodule "pocketbook-sdk5"]
+	path = pocketbook-sdk5
+	url = https://github.com/JuanJakobo/pocketbook-sdk5
