@@ -15,6 +15,7 @@ BasicView::BasicView(const irect *contentRect) : _contentRect(contentRect)
 
 BasicView::~BasicView()
 {
+    delete _contentRect;
     CloseFont(_font);
 }
 

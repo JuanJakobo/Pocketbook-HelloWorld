@@ -22,9 +22,9 @@ MenuHandler::MenuHandler(const string &name)
     _panelMenuBeginX = ScreenWidth() - _mainMenuWidth;
 
     _menuButtonRect = iRect(_mainMenuWidth * 2, _panelMenuBeginY, _mainMenuWidth, _panelMenuHeight, ALIGN_RIGHT);
-    _menuFont = std::unique_ptr<ifont>(OpenFont("LiberationMono-Bold", _panelMenuHeight / 2, 1));
+    _menuFont = OpenFont("LiberationMono-Bold", _panelMenuHeight / 2, 1);
 
-    SetFont(_menuFont.get(), BLACK);
+    SetFont(_menuFont, BLACK);
     DrawTextRect(0, _panelMenuBeginY, ScreenWidth(), _panelMenuHeight, name.c_str(), ALIGN_CENTER);
     DrawTextRect2(&_menuButtonRect, "Menu");
     DrawLine(0, _panelMenuHeight - 1, ScreenWidth(), _panelMenuHeight - 1, BLACK);
@@ -33,6 +33,14 @@ MenuHandler::MenuHandler(const string &name)
 
     SetHardTimer("PANELUPDATE", panelHandlerStatic, 110000);
     DrawPanel(NULL, "", NULL, -1);
+}
+
+MenuHandler::~MenuHandler()
+{
+    CloseFont(_menuFont);
+    delete _menu;
+    delete _clearScreen;
+    delete _closeApp;
 }
 
 void MenuHandler::panelHandlerStatic()
@@ -45,9 +53,9 @@ int MenuHandler::createMenu(iv_menuhandler handler)
 {
     imenu mainMenu[] =
         {
-            {ITEM_HEADER, 0, "Menu", NULL},
-            {ITEM_ACTIVE, 101, "Clear screen", NULL},
-            {ITEM_ACTIVE, 102, "Close App"},
+            {ITEM_HEADER, 0, _menu, NULL},
+            {ITEM_ACTIVE, 101, _clearScreen, NULL},
+            {ITEM_ACTIVE, 102, _closeApp, NULL},
             {0, 0, NULL, NULL}};
 
     mainMenu[2].type = ITEM_ACTIVE;
