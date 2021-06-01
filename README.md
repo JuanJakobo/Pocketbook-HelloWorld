@@ -4,17 +4,22 @@
 
 First you need to install the basic build tools for linux.
 
-Then you must run to set up cmake.
+Then you have to download the Pocketbook SDK (https://github.com/pocketbook/SDK_6.3.0/tree/5.19).
+
+In the CMakeLists.txt of this project you have to set the root of the TOOLCHAIN_PATH to the location where you saved the SDK. 
+This could be for example:
+
+`SET (TOOLCHAIN_PATH "../../SDK/SDK_6.3.0/SDK-B288")`
+
+Then you have to setup cmake by:
 
 `cmake .`
 
-To build the application based on the current code you can run the makearm script.
+To build the application run:
 
-`./makearm.sh` 
+`make` 
 
-
-
-## Where to go on
+## How to go on
 
 A very good tutorial how to set up GDB and program small function is https://github.com/pmartin/pocketbook-demo.
 
